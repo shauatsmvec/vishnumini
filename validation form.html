@@ -1,0 +1,219 @@
+<!doctype html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            background-color: #f9f9f9; /* Light grey background */
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('your-background-image.jpg'); /* Add your background image URL here */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+        }
+
+        h1 {
+            color: #ff6600; /* Orange color */
+            text-align: center;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            border: 2px solid #ff6600; /* Orange border */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            color: #333; /* Black color */
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            background-color: #ff6600; /* Orange color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e55a00; /* Darker orange on hover */
+        }
+
+        input[type="text"]:hover,
+        input[type="email"]:hover,
+        input[type="password"]:hover,
+        input[type="number"]:hover,
+        select:hover {
+            background-color: #ffecd6; /* Light orange fill on hover */
+            border-color: #ff6600; /* Orange border on hover */
+        }
+
+        select {
+            background-color: white;
+            color: black;
+        }
+
+        datalist option {
+            color: black;
+        }
+
+        #thankYouMessage {
+            display: none;
+            text-align: center;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+    </style>
+</head> 
+
+<body>
+    <h1>Login Page</h1>
+    <form id="myForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>    
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="18" max="100" required>
+        <br><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <br><br>
+
+        <label for="interests">Interests:</label>
+        <input type="text" id="interests" name="interests" list="interestsList" required>
+        <br><br>
+
+        <datalist id="interestsList">
+            <option value="Reading">
+            <option value="Hiking">
+            <option value="Traveling">
+            <option value="Cooking">
+        </datalist>
+
+        <br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="thankYouMessage">Thank you for your cooperation!</div>
+
+    <script>
+        const form = document.getElementById('myForm');
+        const thankYouMessage = document.getElementById('thankYouMessage');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            if (validateForm()) {
+                form.style.display = 'none'; // Hide the form
+                thankYouMessage.style.display = 'block'; // Show the thank you message
+            }
+        });
+
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const interests = document.getElementById('interests').value;
+
+            // Check if name is empty
+            if (name === '') {
+                alert('Please enter your name.');
+                return false;
+            }
+
+            // Check if email is valid
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return false;
+            }
+
+            // Check if age is valid
+            if (age < 18 || age > 100) {
+                alert('Please enter a valid age.');
+                return false;
+            }
+
+            // Check if gender is selected
+            if (gender === '') {
+                alert('Please select your gender.');
+                return false;
+            }
+
+            // Check if interests are provided
+            if (interests === '') {
+                alert('Please enter your interests.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function isValidEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+    </script>
+</body>
+</html>
